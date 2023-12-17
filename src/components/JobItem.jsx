@@ -1,9 +1,23 @@
+import React, { useRef, useEffect } from 'react';
+
 const JobItem = (props) => {
   const arr = [props.role, props.level, ...props.languages];
   const ifContains = props.searchJob.every((value) => arr.includes(value));
 
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const containerElement = containerRef.current;
+
+    if (props.modalVisible) {
+      containerElement.style.backgroundColor = '#A9A9A9	';
+    }else{
+      containerElement.style.backgroundColor = 'white'
+    }
+  }, [props.modalVisible]);
+
   return ifContains ? (
-    <div className={props.featured ? "border-left container" : "container"}>
+    <div ref={containerRef} className={props.featured ? "border-left container" : "container"}>
       <div className="logo-box">
         <img src={props.logo !== null ? props.logo : "/images/company-placeholder.svg"} alt="" />
       </div>

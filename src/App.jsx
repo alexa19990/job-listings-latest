@@ -2,7 +2,7 @@ import JobItem from "./components/JobItem";
 import "./App.css";
 import data from "./data.json";
 import Modal from "./components/Modal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const App = () => {
   const [searchJob, setSearchJob] = useState([]);
@@ -43,6 +43,13 @@ const App = () => {
     }
   ]);
 
+
+  const trimHandler = () => {
+    if(addData.some(data => data.value.trim() === "")){
+      window.alert('Please Fill All Fields')
+    }
+  }
+
   const addNewDataValue = (event, index) => {
     setAddData((prevData) => {
       const oldData = [...prevData];
@@ -55,24 +62,30 @@ const App = () => {
   };
 
   const addInputData = () => {
-    setNewData([
-      ...newData,
-      {
-        id: newData.length+100,
-        company: addData[0].value,
-        logo: null,
-        new: true,
-        featured: false,
-        position: addData[1].value,
-        role: addData[2].value,
-        level: addData[3].value,
-        postedAt: `${new Date().getHours()}:${new Date().getMinutes()}`,
-        contract: addData[5].value,
-        location: addData[6].value,
-        languages: addData[7].value.split(" "),
-        tools: [],
-      },
-    ]);
+    if(addData.some(data => data.value.trim() === "")){
+      window.alert('Please Fill All Fields')
+    }
+    else{
+      setNewData([
+        ...newData,
+        {
+          id: newData.length+100,
+          company: addData[0].value,
+          logo: null,
+          new: true,
+          featured: false,
+          position: addData[1].value,
+          role: addData[2].value,
+          level: addData[3].value,
+          postedAt: `${new Date().getHours()}:${new Date().getMinutes()}`,
+          contract: addData[5].value,
+          location: addData[6].value,
+          languages: addData[7].value.split(" "),
+          tools: [],
+        },
+      ]);
+    }
+    
   };
 
 
@@ -133,9 +146,18 @@ const App = () => {
         languages={item.languages}
         clickHandler={clickHandler}
         searchJob={searchJob}
+        modalVisible={modalVisible}
       />
     );
   });
+
+  useEffect(()=>{
+    if(modalVisible){
+      document.body.style.backgroundColor='grey'
+    }else{
+      document.body.style.backgroundColor='rgb(220, 220, 220)'
+    }
+  }, [modalVisible])
 
   return (
     <>
@@ -149,14 +171,14 @@ const App = () => {
             <p className="input-box-text" onClick={clearHandler}>
               clear
             </p>
-          </div>
+          </div>  
         )}
       </div>
       <div className="parent-container">{dataArr}</div>
       <button onClick={showModal} className="addButton">
         +
       </button>
-      {modalVisible && <Modal addNewDataValue={addNewDataValue} addInputData={addInputData} />}
+      {modalVisible && <Modal addNewDataValue={addNewDataValue} addInputData={addInputData} hideModal={hideModal} />}
     </>
   );
 };

@@ -4,6 +4,7 @@
   --main-blue: #5ca5a5;
   --main-grey: #7c8f8f;
   --page-color: #f2f2f262;
+  --secondary-blue: rgb(191, 231, 244);
 }
 
 * {
@@ -20,8 +21,9 @@ body {
   justify-content: center;
   align-items: center;
   z-index: 0;
-  
 }
+
+/*  */
 
 .img-box {
   position: absolute;
@@ -136,12 +138,18 @@ span {
 
 .tag-button {
   padding: 10px;
-  background-color: rgb(191, 231, 244) !important;
+  background-color: var(--secondary-blue)!important;
 }
 
 .border-left {
   border-left: 7px solid var(--main-blue);
 }
+
+.notDisplayed{
+  display: none;
+}
+
+/* aqamde */
 
 .input-box {
   background-color: white;
@@ -160,10 +168,10 @@ span {
 
 .modal-container {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 20%;
+  left: 45%;
   border-radius: 10px;
-  padding: 20px;
+  padding: 20px 30px;
   background-color: var(--main-blue);
 }
 
@@ -202,7 +210,7 @@ span {
   flex-direction: row;
   align-items: center;
   margin: 0px 8px;
-  background-color: rgb(191, 231, 244);
+  background-color: var(--secondary-blue);
   height: 70%;
   padding: 0px 0px 0px 5px;
   border-radius: 8px;
@@ -235,6 +243,18 @@ span {
 }
 
 
-.notDisplayed{
-  display: none;
+.cancel, .apply{
+  border: none;
+  padding: 5px 10px;
+  background-color: var(--secondary-blue);
+}
+
+.cancel{
+  margin-right: 85px;
+}
+
+.modal-Btncontainer{
+  display: flex;
+  justify-content: start;
+
 }
